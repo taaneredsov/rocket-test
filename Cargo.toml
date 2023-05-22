@@ -12,6 +12,3 @@ serde = { version = "1", features = ["derive"] }
 reqwest = { version = "0.11.6", features = ["json"] }
 tokio = { version = "1.15.0", features = ["full"] }
 serde_json = "1.0.72"
-
-[env]
-OPENAI_API_KEY = "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"
