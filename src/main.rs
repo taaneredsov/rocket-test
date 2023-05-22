@@ -1,6 +1,7 @@
 #[macro_use] extern crate rocket;
 // use rocket::http::{Status, Header, ContentType};
-use rocket::{serde::json::Json, Responder};
+// use rocket::{serde::json::Json, Responder};
+use rocket::{serde::json::Json};
 use serde::Serialize;
 
 #[get("/")]
@@ -25,13 +26,6 @@ struct SuccessResponse {
     text: String
 }
 
-// responder example
-#[derive(Responder)]
-#[response(status = 200, content_type = "json")]
-struct AllOkResponse {
-    text: String
-}
-
 #[get("/all_ok")]
 fn all_ok() -> Json<SuccessResponse> {
     return Json(SuccessResponse {
@@ -39,6 +33,14 @@ fn all_ok() -> Json<SuccessResponse> {
         text: "OK".to_string(),
     })
 }
+
+// needed for Render deploys
+// this one returns the correct status code
+// #[derive(Responder)]
+// #[response(status = 200, content_type = "json")]
+// struct AllOkResponse {
+//     text: String
+// }
 
 // needed for Render deploys
 // this one returns the correct status code
