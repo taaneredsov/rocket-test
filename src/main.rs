@@ -1,5 +1,5 @@
 #[macro_use] extern crate rocket;
-use rocket::http::{Status, Header, ContentType};
+// use rocket::http::{Status, Header, ContentType};
 
 #[get("/")]
 fn index() -> &'static str {
