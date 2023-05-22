@@ -1,5 +1,5 @@
 #[macro_use] extern crate rocket;
-use rocket::http::Status;
+use rocket::http::{Status, Header, ContentType};
 
 #[get("/")]
 fn index() -> &'static str {
@@ -17,10 +17,27 @@ fn not_found() -> &'static str {
     "Not found!"
 }
 
-#[get("/all_ok")]
-fn all_ok() -> Status {
-    return Status::Ok;
+// responder example
+#[derive(Responder)]
+#[response(status = 200, content_type = "json")]
+struct AllOkResponse {
+    text: String
 }
+
+// needed for Render deploys
+// this one returns the correct status code
+#[get("/all_ok")]
+fn all_ok() -> AllOkResponse {
+    return AllOkResponse {
+        text: "All ok!".to_string()
+    };
+}
+
+// Plain status code example
+// #[get("/all_ok")]
+// fn all_ok() -> Status {
+//     return Status::Ok;
+// }
 
 #[launch]
 fn rocket() -> _ {
