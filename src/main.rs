@@ -1,3 +1,5 @@
+use rocket::http::Status;
+
 #[macro_use] extern crate rocket;
 
 #[get("/")]
@@ -16,14 +18,20 @@ fn not_found() -> &'static str {
     "Not found!"
 }
 
+#[get("/all_ok")]
+fn all_ok() -> Status {
+    return Status::Ok;
+}
+
 #[launch]
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
         .mount("/", routes![answer])
         .register("/", catchers![not_found])
+        .mount("/", routes![all_ok])
 }
 
 fn get_answer() -> &'static str {
-    "42"
+    return "42";
 }
