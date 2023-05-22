@@ -1,5 +1,7 @@
 #[macro_use] extern crate rocket;
 // use rocket::http::{Status, Header, ContentType};
+use rocket::{serde::json::Json, Responder};
+use serde::Serialize;
 
 #[get("/")]
 fn index() -> &'static str {
@@ -17,6 +19,12 @@ fn not_found() -> &'static str {
     "Not found!"
 }
 
+#[derive(Debug, Serialize)]
+struct SuccessResponse {
+    code: u32,
+    text: String
+}
+
 // responder example
 #[derive(Responder)]
 #[response(status = 200, content_type = "json")]
@@ -24,14 +32,22 @@ struct AllOkResponse {
     text: String
 }
 
+#[get("/all_ok")]
+fn all_ok() -> Json<SuccessResponse> {
+    return Json(SuccessResponse {
+        code: 200,
+        text: "OK".to_string(),
+    })
+}
+
 // needed for Render deploys
 // this one returns the correct status code
-#[get("/all_ok")]
-fn all_ok() -> AllOkResponse {
-    return AllOkResponse {
-        text: "OK".to_string()
-    };
-}
+// #[get("/all_ok")]
+// fn all_ok() -> AllOkResponse {
+//     return AllOkResponse {
+//         text: "OK".to_string(),
+//     };
+// }
 
 // Plain status code example
 // #[get("/all_ok")]
