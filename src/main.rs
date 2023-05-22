@@ -29,7 +29,7 @@ struct AllOkResponse {
 #[get("/all_ok")]
 fn all_ok() -> AllOkResponse {
     return AllOkResponse {
-        text: "All ok!".to_string()
+        text: "OK".to_string()
     };
 }
 
