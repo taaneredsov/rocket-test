@@ -1,6 +1,5 @@
-use rocket::http::Status;
-
 #[macro_use] extern crate rocket;
+use rocket::http::Status;
 
 #[get("/")]
 fn index() -> &'static str {
